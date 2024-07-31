@@ -1,0 +1,49 @@
+{% extends "base.html" %}  <!-- Extends the base template to inherit common layout and styles -->
+{% block content %}  <!-- Defines the content block to be filled in the base template -->
+
+<h1 class="mt-4 mb-4">Job Application Form</h1>  <!-- Main heading for the form -->
+
+<!-- Start of the form -->
+<form method="post">  <!-- Form submission method is POST to ensure data is sent securely -->
+    {% csrf_token %}  <!-- CSRF token for security to prevent cross-site request forgery attacks -->
+
+    <!-- Input field for the first name -->
+    <div class="form-group mb-4">
+        <label for="first_name">First Name:</label>  <!-- Label for the input field -->
+        <input class="form-control" type="text" id="first_name" name="first_name" required>  <!-- Input field for first name -->
+    </div>
+
+    <!-- Input field for the last name -->
+    <div class="form-group mb-4">
+        <label for="last_name">Last Name:</label>  <!-- Label for the input field -->
+        <input class="form-control" type="text" id="last_name" name="last_name" required>  <!-- Input field for last name -->
+    </div>
+
+    <!-- Input field for the email -->
+    <div class="form-group mb-4">
+        <label for="email">Email:</label>  <!-- Label for the input field -->
+        <input class="form-control" type="email" id="email" name="email" required>  <!-- Input field for email -->
+    </div>
+
+    <!-- reCAPTCHA widget for spam protection -->
+    <div class="form-group mb-4">
+        <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>  <!-- rCAPTCHA widget with site key -->
+    </div>
+
+    <!-- Submit button for the form -->
+    <button class="btn btn-secondary mb-4" type="submit">Submit</button>
+
+    <!-- Display success or error messages if there are any -->
+    {% if messages %}
+    <div class="alert alert-success">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+</form>
+
+<!-- Include Google reCAPTCHA API script -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+{% endblock %}
